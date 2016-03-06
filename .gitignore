@@ -2,6 +2,6 @@ Acme-MyPeek-*
 Build
 MYMETA.*
 Makefile
-_build/
+.build/
 blib/
 *.swp

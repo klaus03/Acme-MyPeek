@@ -13,11 +13,13 @@ showd('uselongdouble');
 showd('usemorebits');
 
 my $lv;
-my $hi = hi(); $lv = lv();
-diag("hi = <$hi>, lv = <$lv>");
+my ($d1, $d2, $d3);
 
-my $hd = hd();  $lv = lv();
-diag("hd = <$hd>, lv = <$lv>");
+my $hi = hi(); $lv = lv(); ($d1, $d2, $d3) = deb_hi();
+diag("hi = <$hi>, lv = <$lv>, d1 = <$d1>, d2 = <$d2>, d3 = <$d3>");
+
+my $hd = hd();  $lv = lv(); ($d1, $d2, $d3) = deb_hd();
+diag("hd = <$hd>, lv = <$lv>, d1 = <$d1>, d2 = <$d2>, d3 = <$d3>");
 
 is(  $hi,     sprintf('%u', $hi),     'hi() '    .'== sprintf(hi()'.    ')');
 isnt($hi + 1, sprintf('%u', $hi + 1), 'hi() + 1 '.'!= sprintf(hi()'.' + 1)');

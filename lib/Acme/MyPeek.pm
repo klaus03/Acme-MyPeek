@@ -8,14 +8,39 @@ use B qw(svref_2object class);
 require Exporter;
 
 our @ISA       = qw(Exporter);
-our @EXPORT    = qw(hi hd dt lv);
+our @EXPORT    = qw(hi hd dt lv deb_hi deb_hd);
 our @EXPORT_OK = qw();
 
 my $last_val;
 
-sub hi { highval( sub{ $_[0]                 eq sprintf('%u',  $_[0])      }); }
-sub hd { highval( sub{ sprintf('%.f', $_[0]) ne sprintf('%.f', $_[0] - 1)  }); }
-sub dt { class(svref_2object(\$_[0]));                                 }
+my $deb_hi_1 = '?';
+my $deb_hi_2 = '?';
+my $deb_hi_3 = '?';
+
+my $deb_hd_1 = '?';
+my $deb_hd_2 = '?';
+my $deb_hd_3 = '?';
+
+sub deb_hi { ($deb_hi_1, $deb_hi_2, $deb_hi_3) }
+sub deb_hd { ($deb_hd_1, $deb_hd_2, $deb_hd_3) }
+
+sub hi { highval( sub{
+  $deb_hi_1 = $_[0];
+  $deb_hi_2 = $_[0];
+  $deb_hi_3 = sprintf('%u',  $_[0]);
+
+  $deb_hi_2 eq $deb_hi_3;
+}); }
+
+sub hd { highval( sub{
+  $deb_hd_1 = $_[0];
+  $deb_hd_2 = sprintf('%.f', $_[0]);
+  $deb_hd_3 = sprintf('%.f', $_[0] - 1);
+
+  $deb_hd_2 ne $deb_hd_3;
+}); }
+
+sub dt { class(svref_2object(\$_[0])); }
 sub lv { $last_val; }
 
 sub highval {
@@ -61,7 +86,7 @@ sub highval {
 
     return -2 if $r;
 
-    return $x
+    return $x;
 }
 
 1;
